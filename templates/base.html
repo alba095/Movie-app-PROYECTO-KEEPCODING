@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Movie App {% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Movie App</h1>
+        <hr>
+
+    </header>
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+                <p style="color:red;">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+             
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

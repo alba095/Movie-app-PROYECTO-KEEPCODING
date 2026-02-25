@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+    <p>Bienvenida a Movie App.</p>
+
+ <form action="/buscar" method="get">
+        <label for="title"> Titulo de la pelicula </label>
+        <input type="text" name="title">
+        <label for="year"> Año </label>
+        <input type="text" name="year">
+    <button type="submit"> Buscar </button>
+
+ </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

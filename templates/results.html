@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}Resultados{% endblock %}
+
+{% block content %}
+    <h2> Resultados </h2>
+    <p> Buscaste : {{ title }}{% if year %} ({{ year }}) {% endif %} </p>
+{% endblock %}
