@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Detalles{% endblock %}
+
+{% block content %}
+{% if error %}
+        <p>{{ error }}</p>
+{% else %}
+        <p>Titulo : {{ movie["Title"]}}</p>
+        <p>Año : {{ movie["Year"]}}</p>
+        <p>Director: {{ movie["Director"]}}</p>
+        <p>Resumen : {{ movie["Plot"]}}</p>
+        <p>Reparto : {{ movie["Actors"]}}</p>
+{% endif %}
+
+{% endblock %}

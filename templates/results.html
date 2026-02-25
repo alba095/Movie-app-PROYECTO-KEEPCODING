@@ -5,4 +5,24 @@
 {% block content %}
     <h2> Resultados </h2>
     <p> Buscaste : {{ title }}{% if year %} ({{ year }}) {% endif %} </p>
-{% endblock %}
+
+ {% if error %}
+    <p> {{ error }}</p>
+   {% else %}
+    {% for m in movies %}
+       <a href="/movie/{{m['imdbID']}}">
+        {{m['Title']}}
+       </a>
+       <br>
+        {% endfor %}
+     {% endif %}
+
+
+
+
+
+
+
+
+
+    {% endblock %}
