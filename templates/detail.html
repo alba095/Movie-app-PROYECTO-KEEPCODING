@@ -11,5 +11,16 @@
         <p>Resumen : {{ movie["Plot"]}}</p>
         <p>Reparto : {{ movie["Actors"]}}</p>
 {% endif %}
-
+ <form action="/movie/{{movie['imdbID']}}/comment" method="POST">
+    <input type="text" name="persona" placeholder="Escribe tu nombre">
+    <br>
+    <textarea name="comentario" id="comentario">Comentario..</textarea>
+    <br>
+    <button type="submit">Guardar</button>
+ </form>
+ {% for c in comment %}
+    {{ c["persona"] }}
+    {{ c["comentario"] }}
+    {{ c["fecha"] }}
+{% endfor %}
 {% endblock %}

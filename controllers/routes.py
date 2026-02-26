@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, flash
 from services.omdb_service import search_movies,get_movie_detail
+from models.databate import *
 
 def register_routes(app):
 
@@ -23,4 +24,16 @@ def register_routes(app):
     @app.route("/movie/<imdbID>")
     def detail(imdbID):
          movie, error = get_movie_detail(imdbID)
-         return render_template("detail.html", movie= movie, error= error)
+         comment = get_comments(imdbID)
+         return render_template("detail.html", movie= movie, error= error, comment = comment)
+    
+    @app.route("/movie/<imdbID>/comment", methods=["POST"])
+    def comment(imdbID):
+        persona = request.form.get("persona")
+        comentario = request.form.get("comentario")
+        if persona and comentario and persona.strip() and comentario.strip():
+            add_comment(imdbID,persona,comentario)
+            return redirect(f"/movie/{imdbID}")
+        else:
+            flash("Rellena todos los campos")
+            return redirect(f"/movie/{imdbID}")
