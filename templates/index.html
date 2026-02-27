@@ -6,11 +6,19 @@
     <p>Bienvenida a Movie App.</p>
 
  <form action="/buscar" method="get">
-        <label for="title"> Titulo de la pelicula </label>
-        <input type="text" name="title">
-        <label for="year"> Año </label>
-        <input type="text" name="year">
-    <button type="submit"> Buscar </button>
+    <div class="row">
+    <div class="mb-3">
+        <label for="title"> 
+            Titulo de la pelicula </label>
+        <input type="text" name="title" class="form-control">
+    </div>
+    <div  class="mb-3"> 
+        <label for="year"> Año
+             </label>
+        <input type="text" name="year" class="form-control">
+        </div> 
+        </div>
+    <button type="submit" class="btn btn-primary"> Buscar </button>
 
  </form>
 

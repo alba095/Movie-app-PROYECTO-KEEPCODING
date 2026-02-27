@@ -5,22 +5,51 @@
 {% if error %}
         <p>{{ error }}</p>
 {% else %}
-        <p>Titulo : {{ movie["Title"]}}</p>
-        <p>Año : {{ movie["Year"]}}</p>
-        <p>Director: {{ movie["Director"]}}</p>
-        <p>Resumen : {{ movie["Plot"]}}</p>
-        <p>Reparto : {{ movie["Actors"]}}</p>
-{% endif %}
+        <div class="row">
+
+  <div class="col-md-4">
+    {% if movie["Poster"] != "N/A" %}
+      <img src="{{ movie['Poster'] }}" class="img-fluid" alt="Poster">
+    {% endif %}
+  </div>
+
+  <div class="col-md-8">
+     <h3>{{ movie["Title"] }}</h3>
+    <p><strong>Año:</strong> {{ movie["Year"] }}</p>
+    <p><strong>Director:</strong> {{ movie["Director"] }}</p>
+    <p><strong>Resumen:</strong> {{ movie["Plot"] }}</p>
+    <p><strong>Reparto:</strong> {{ movie["Actors"] }}</p>
+  </div>
+</div>
+<hr>
+<h4>Comentarios</h4>
+
  <form action="/movie/{{movie['imdbID']}}/comment" method="POST">
-    <input type="text" name="persona" placeholder="Escribe tu nombre">
-    <br>
-    <textarea name="comentario" id="comentario">Comentario..</textarea>
-    <br>
+         <div class="mb-3">
+                <input type="text" name="persona" placeholder="Escribe tu nombre">
+         </div>
+         <div class="mb-3">
+                <textarea name="comentario" class="form-control" rows="3" placeholder="Escribe tu comentario"></textarea>
+         </div>
+                
     <button type="submit">Guardar</button>
  </form>
- {% for c in comment %}
-    {{ c["persona"] }}
-    {{ c["comentario"] }}
-    {{ c["fecha"] }}
+ <hr>
+ {% if comments %}
+{% for c in comments %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">
+        {{ c["persona"] }} - {{ c["fecha"] }}
+      </h6>
+      <p class="card-text">
+        {{ c["comentario"] }}
+      </p>
+    </div>
+  </div>
 {% endfor %}
+{% else %}
+    <p class="text-muted">Todavía no hay comentarios.</p>
+{% endif %}
+{% endif %}
 {% endblock %}

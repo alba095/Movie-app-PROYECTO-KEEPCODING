@@ -24,8 +24,8 @@ def register_routes(app):
     @app.route("/movie/<imdbID>")
     def detail(imdbID):
          movie, error = get_movie_detail(imdbID)
-         comment = get_comments(imdbID)
-         return render_template("detail.html", movie= movie, error= error, comment = comment)
+         comments = get_comments(imdbID)
+         return render_template("detail.html", movie= movie, error= error, comments = comments)
     
     @app.route("/movie/<imdbID>/comment", methods=["POST"])
     def comment(imdbID):

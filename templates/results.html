@@ -9,19 +9,30 @@
  {% if error %}
     <p> {{ error }}</p>
    {% else %}
+   <div class="row g-3">
     {% for m in movies %}
-       <a href="/movie/{{m['imdbID']}}">
-        {{m['Title']}}
-       </a>
-       <br>
+            <div class="col-12 col-md-6 col-lg-4">
+               <div class="card h-100">
+                     {% if m["Poster"] != "N/A" %}
+                        <img src="{{ m['Poster'] }}"
+                             class="card-img-top"
+                             style="height: 400px; object-fit: cover;"  
+                             alt="Poster de {{ m['Title'] }}"><!--style height para todas las imagenes a la misma altura-->
+                     {% else %}
+                        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 300px;">
+                         Sin póster
+                        </div>
+   {% endif %}
+               <div class="card-body">
+                  <h5 class="card-title">{{ m["Title"] }}</h5>
+                  <p class="card-text">Año: {{ m["Year"] }}</p>
+                  <a href="/movie/{{ m['imdbID'] }}" class="btn btn-primary btn-sm">Ver detalle</a>
+               </div>
+            </div>
+         </div>
         {% endfor %}
+        </div>
      {% endif %}
-
-
-
-
-
-
 
 
 
