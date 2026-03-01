@@ -25,7 +25,8 @@ def register_routes(app):
     def detail(imdbID):
          movie, error = get_movie_detail(imdbID)
          comments = get_comments(imdbID)
-         return render_template("detail.html", movie= movie, error= error, comments = comments)
+         promedio, total = get_rating_stats(imdbID)
+         return render_template("detail.html", movie=movie, comments=comments, promedio=promedio, total=total)
     
     @app.route("/movie/<imdbID>/comment", methods=["POST"])
     def comment(imdbID):
@@ -37,3 +38,27 @@ def register_routes(app):
         else:
             flash("Rellena todos los campos")
             return redirect(f"/movie/{imdbID}")
+    
+    @app.route("/movie/<imdbID>/rate", methods=["POST"])
+    def rate_movie(imdbID):
+        persona = request.form.get("persona", "").strip()
+        calificacion = request.form.get("calificacion", "").strip()
+
+        # validaciones rápidas
+        if not persona or not calificacion:
+            flash("Nombre y calificación son obligatorios", "warning")
+            return redirect(f"/movie/{imdbID}")
+
+        try:
+            calificacion_int = int(calificacion)
+        except ValueError:
+            flash("La calificación debe ser un número", "danger")
+            return redirect(f"/movie/{imdbID}")
+
+        if calificacion_int < 1 or calificacion_int > 5:
+            flash("La calificación debe estar entre 1 y 5", "warning")
+            return redirect(f"/movie/{imdbID}")
+
+        add_calificacion(imdbID, persona, calificacion_int)
+        flash("Calificación guardada", "success")
+        return redirect(f"/movie/{imdbID}")

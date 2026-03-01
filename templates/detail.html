@@ -35,6 +35,47 @@
     <button type="submit">Guardar</button>
  </form>
  <hr>
+<h4>Puntuar película</h4>
+
+<form action="/movie/{{ movie['imdbID'] }}/rate" method="POST" class="mb-3">
+  <div class="mb-3">
+    <input type="text" name="persona" class="form-control" placeholder="Tu nombre">
+  </div>
+
+  <div class="mb-3">
+    <select name="calificacion" class="form-select">
+      <option value="">Elige una puntuación</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Guardar puntuación</button>
+</form>
+{% if total and total > 0 %}
+  <p>
+    Promedio: {{ promedio|round(1) }} / 5 ({{ total }} votos)
+  </p>
+
+  {% set full = promedio|int %}
+
+  <div>
+    {% for _ in range(full) %}
+      <span style="font-size: 1.2rem;">★</span>
+    {% endfor %}
+
+    {% for _ in range(5 - full) %}
+      <span style="font-size: 1.2rem;">☆</span>
+    {% endfor %}
+  </div>
+
+{% else %}
+  <p class="text-muted">Todavía no hay calificaciones.</p>
+{% endif %}
+ <hr>
  {% if comments %}
 {% for c in comments %}
   <div class="card mb-3">
